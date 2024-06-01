@@ -1,14 +1,22 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ['TRANSFORMERS_CACHE'] = '/home/csgrad/sunilruf/'
 
 
 @st.cache_resource
 def load_model_and_tokenizer():
-    tokenizer = AutoTokenizer.from_pretrained("/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/experiment-6/checkpoint-50")
-    model = AutoModelForCausalLM.from_pretrained("/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/experiment-6/checkpoint-50", load_in_4bit=True, device_map="auto")
+    #path = "/data/sunilruf/llama/pruned/rank_32/checkpoint-40/"
+    #path = "/data/sunilruf/llama/fp16_no/rank_32/checkpoint-13/"
+    #path = "/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/rank_64/rank_64_2/checkpoint-50"
+    #path = "/data/sunilruf/llama/rank_64/checkpoint-14/"
+    #path = "/data/sunilruf/prune/wanda/out/llama2_7b_structured/model/"
+    #path = "mistralai/Mistral-7B-Instruct-v0.2"
+    #path = "/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/rank_64/rank_16_2/checkpoint-50/"
+    path = "sunilrufus/Emotion_support_chatbot"
+    tokenizer = AutoTokenizer.from_pretrained(path)
+    model = AutoModelForCausalLM.from_pretrained(path, load_in_4bit=True, device_map="auto")
     return model, tokenizer
 
 model, tokenizer = load_model_and_tokenizer()
@@ -41,7 +49,9 @@ if prompt := st.chat_input("What is up?"):
             top_k=50,
             top_p=0.95
     )
+    print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
     value = (tokenizer.batch_decode(outputs, skip_special_tokens=True)[0].split("[/INST]")[-1])
+    value = value.encode('ascii', 'ignore').decode('ascii')
     #response = f"Echo: {value}"
     #st.session_state.messages.append({'role': 'assistant', 'content': value})
     print(st.session_state.messages)

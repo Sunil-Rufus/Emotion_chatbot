@@ -1,14 +1,21 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ['TRANSFORMERS_CACHE'] = '/home/csgrad/sunilruf/'
 
-
+import torch
 @st.cache_resource
 def load_model_and_tokenizer():
-    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
-    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_4bit=True, device_map="auto")
+    #path = "path = "/data/sunilruf/llama/pruned/rank_32/checkpoint-40/""
+    path = "/data/sunilruf/prune/wanda/out/llama2_7b_structured/model/"
+    path = "mistralai/Mistral-7B-Instruct-v0.2"
+    path = "/data/sunilruf/llama/phi3/checkpoint-1/"
+    
+    pruned_dict = torch.load("/data/sunilruf/prune/LLM-Pruner/prune_log/llama_prune/pytorch_model.bin", map_location="cuda")
+    tokenizer, model = pruned_dict['tokenizer'], pruned_dict['model']
+    tokenizer.pad_token_id = 0
+    tokenizer.padding_side = "left"
     return model, tokenizer
 
 model, tokenizer = load_model_and_tokenizer()
@@ -42,6 +49,9 @@ if prompt := st.chat_input("What is up?"):
             top_p=0.95
     )
     value = (tokenizer.batch_decode(outputs, skip_special_tokens=True)[0].split("[/INST]")[-1])
+    response = f"Echo: {value}"
+    value = value.encode('ascii', 'ignore').decode('ascii')
+    #st.session_state.messages.append({'role': 'assistant', 'content': response})
     #response = f"Echo: {value}"
     #st.session_state.messages.append({'role': 'assistant', 'content': value})
     print(st.session_state.messages)
