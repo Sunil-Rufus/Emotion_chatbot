@@ -4,7 +4,6 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ['TRANSFORMERS_CACHE'] = '/home/csgrad/sunilruf/'
 
-
 @st.cache_resource
 def load_model_and_tokenizer():
     #path = "/data/sunilruf/llama/pruned/rank_32/checkpoint-40/"
