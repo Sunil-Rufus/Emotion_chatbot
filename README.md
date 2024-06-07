@@ -38,7 +38,7 @@ them as integral components within the evolving landscape of digital care provis
    
 ## Model and Dataset used for finetuning
 
-The dataset used for finetuning can be found in [HuggingFace datasets] (https://huggingface.co/datasets/sunilrufus/Extes_filtered1)
-The finetuned model can be found in [HuggingFace Hub] (https://huggingface.co/sunilrufus/Emotion_support_chatbot)
+The dataset used for finetuning can be found in [HuggingFace datasets](https://huggingface.co/datasets/sunilrufus/Extes_filtered1) 
+The finetuned model can be found in [HuggingFace Hub](https://huggingface.co/sunilrufus/Emotion_support_chatbot)
 
      
