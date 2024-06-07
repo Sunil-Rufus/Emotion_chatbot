@@ -30,10 +30,15 @@ them as integral components within the evolving landscape of digital care provis
    pip install requirements.txt
    ```
 
-3. Run the chat application using Streamlit
+3. Run the chat application using Streamlit - add your huggingface API token to the code.
    ```
    cd deploy/
    streamlit run deploy.py
    ```
+   
+## Model and Dataset used for finetuning
+
+The dataset used for finetuning can be found in [HuggingFace datasets] (https://huggingface.co/datasets/sunilrufus/Extes_filtered1)
+The finetuned model can be found in [HuggingFace Hub] (https://huggingface.co/sunilrufus/Emotion_support_chatbot)
 
      
