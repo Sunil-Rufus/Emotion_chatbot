@@ -21,7 +21,8 @@ them as integral components within the evolving landscape of digital care provis
 ## Installation
 
 1. Clone the repository
-   ``` git clone https://github.com/Sunil-Rufus/Emotion_chatbot.git
+   ```
+   git clone https://github.com/Sunil-Rufus/Emotion_chatbot.git
    ```
 
      
