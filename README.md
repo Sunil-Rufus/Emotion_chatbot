@@ -17,3 +17,10 @@ evaluation procedures are conducted on standard datasets. By systematically test
 the efficiency of these enhanced emotional support chatbots, this research contributes to the
 advancement of AI-driven solutions in the realm of mental health support services, positioning
 them as integral components within the evolving landscape of digital care provision.
+
+## Installation
+
+1. Clone the repository
+   ''' git clone https://github.com/Sunil-Rufus/Emotion_chatbot.git
+       cd Emotion_chatbot'''
+     
