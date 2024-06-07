@@ -1,3 +1,4 @@
+# Empowering Emotional Support Chatbot using LLM
 The emergence of AI-driven chatbots presents a promising avenue for extending empathy
 and support to individuals navigating emotional distress. This study proposes the utilization
 of deep learning and natural language processing (NLP) methodologies to develop an
