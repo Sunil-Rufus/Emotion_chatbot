@@ -25,5 +25,15 @@ them as integral components within the evolving landscape of digital care provis
    git clone https://github.com/Sunil-Rufus/Emotion_chatbot.git
    cd Emotion_chatbot
    ```
+2. Install requirements
+   ```
+   pip install requirements.txt
+   ```
+
+3. Run the chat application using Streamlit
+   ```
+   cd deploy/
+   streamlit run deploy.py
+   ```
 
      
