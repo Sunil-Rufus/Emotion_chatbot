@@ -42,6 +42,7 @@ The dataset used for finetuning can be found in [HuggingFace datasets](https://h
 
 The finetuned model can be found in [HuggingFace Hub](https://huggingface.co/sunilrufus/Emotion_support_chatbot)
 
+More details about the finetuning process and evaluations can be found in the report provided.
      
 Examples of Emo Bot
 
