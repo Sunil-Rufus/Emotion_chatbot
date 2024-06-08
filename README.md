@@ -45,6 +45,6 @@ The finetuned model can be found in [HuggingFace Hub](https://huggingface.co/sun
      
 Examples of Emo Bot
 
-![plot](instruct-mistral/images/image1.jpg)
-![plot](instruct-mistral/images/image2.jpg)
+![plot](images/image1.jpg)
+![plot](images/image2.jpg)
 
