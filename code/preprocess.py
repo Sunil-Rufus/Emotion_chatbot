@@ -7,7 +7,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 torch.cuda.empty_cache()
 device = "cuda" # the device to load the model onto
 
-json_file_path = '../../ExTES.json'  # Change 'output.json' to your desired file name
+json_file_path = '../../../ExTES.json'  # Change 'output.json' to your desired file name
 
 # Write the list to the JSON file
 with open(json_file_path, 'rb') as json_file:
@@ -99,5 +99,5 @@ for i in range(len(formatted_data1)):
     
 df.dropna(inplace=True)
 
-df.to_csv('data/processed_data.csv', index=False)
+df.to_csv('../data/processed_data.csv', index=False)
 
