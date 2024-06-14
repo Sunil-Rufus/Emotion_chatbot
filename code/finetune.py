@@ -115,7 +115,7 @@ print("passed training_args")
 # based on config
 peft_config = LoraConfig(
         r=64,
-        lora_alpha=16,
+        lora_alpha=32,
         lora_dropout=0.1,
         bias="none",
         task_type="CAUSAL_LM",
