@@ -1,9 +1,23 @@
 import torch
 import os
+from sklearn.model_selection import StratifiedShuffleSplit
 import pandas as pd
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from datasets import DatasetDict
+from datasets import Dataset
+import re
+import random
+from multiprocessing import cpu_count
+from trl import SFTTrainer
+from peft import LoraConfig
+from transformers import TrainingArguments
+from transformers import BitsAndBytesConfig
+import torch
+
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
 os.environ['TRANSFORMERS_CACHE'] = '/home/csgrad/sunilruf/'
-from transformers import AutoModelForCausalLM, AutoTokenizer
+
 torch.cuda.empty_cache()
 device = "cuda" # the device to load the model onto
 #model_path = "/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/experiment-6/checkpoint-9/"
@@ -14,7 +28,7 @@ model = AutoModelForCausalLM.from_pretrained(model_path, load_in_4bit=True, devi
 df = pd.read_csv('data/processed_data.csv')
 
 
-from sklearn.model_selection import StratifiedShuffleSplit
+
 sss = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 
 for train_index, test_index in sss.split(df, df['scene']):
@@ -23,14 +37,11 @@ for train_index, test_index in sss.split(df, df['scene']):
 X_train['content'] = X_train['content'].apply(lambda x: x[1:])
 X_test['content'] = X_test['content'].apply(lambda x: x[1:])
 
-from datasets import DatasetDict
-from datasets import Dataset
 datasets_train_test = DatasetDict({
     "train": Dataset.from_pandas(X_train),
     "test": Dataset.from_pandas(X_test)
     })
 
-import ast 
 def apply_chat_template(example, tokenizer):
     messages = (example["content"])
     try:
@@ -42,9 +53,7 @@ def apply_chat_template(example, tokenizer):
         text =  "None"
         return {'content': " "}
     
-import re
-import random
-from multiprocessing import cpu_count
+
 column_names = ['scene','content']
 raw_datasets = datasets_train_test.map(apply_chat_template,
                                 num_proc=cpu_count(),
@@ -55,9 +64,6 @@ raw_datasets = datasets_train_test.map(apply_chat_template,
 train_dataset = raw_datasets["train"]
 eval_dataset = raw_datasets["test"]
 
-
-from transformers import BitsAndBytesConfig
-import torch
 
 # specify how to quantize the model
 quantization_config = BitsAndBytesConfig(
@@ -75,9 +81,6 @@ model_kwargs = dict(
     quantization_config=quantization_config,
 )
 
-from trl import SFTTrainer
-from peft import LoraConfig
-from transformers import TrainingArguments
 
 # path where the Trainer will save its checkpoints and logs
 output_dir = '/home/csgrad/sunilruf/emotion_chatbot/master/sunils_code/mistra/rank_64/rank_64_2/'

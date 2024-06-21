@@ -1,9 +1,12 @@
 import torch
 import os
 import json
+import pandas as pd
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
 os.environ['TRANSFORMERS_CACHE'] = '/home/csgrad/sunilruf/'
-from transformers import AutoModelForCausalLM, AutoTokenizer
 torch.cuda.empty_cache()
 device = "cuda" # the device to load the model onto
 
@@ -78,7 +81,7 @@ for i in range(len(combined_scenes)):
                 
         formatted_data1.append(formatted_data)
         
-import pandas as pd
+
 
 # Define column names
 columns = ['scene', 'content']
